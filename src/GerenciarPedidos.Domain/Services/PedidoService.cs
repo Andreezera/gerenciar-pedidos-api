@@ -3,6 +3,7 @@ using GerenciarPedidos.Data.Interfaces;
 using Microsoft.Extensions.Logging;
 using GerenciarPedidos.Domain.Entities;
 using GerenciarPedidos.Domain.Dtos;
+using GerenciarPedidos.Domain.Services.CalculoImposto;
 
 namespace GerenciarPedidos.Domain.Services;
 
@@ -10,11 +11,13 @@ public class PedidoService : IPedidoService
 {
     private readonly IPedidoRepository _pedidoRepository;
     private readonly ILogger<PedidoService> _logger;
+    private readonly CalculoImpostoFactory _calculoImpostoFactory;
 
-    public PedidoService(IPedidoRepository pedidoRepository, ILogger<PedidoService> logger)
+    public PedidoService(IPedidoRepository pedidoRepository, ILogger<PedidoService> logger, CalculoImpostoFactory calculoImpostoFactory)
     {
         _pedidoRepository = pedidoRepository;
         _logger = logger;
+        _calculoImpostoFactory = calculoImpostoFactory;
     }
 
     public async Task<Pedido> CreatePedidoAsync(PedidoCreateDto pedidoDto)
@@ -40,8 +43,12 @@ public class PedidoService : IPedidoService
             Status = "Criado"
         };
 
-        pedido.Imposto = pedido.Itens.Sum(i => i.Valor * i.Quantidade) * 0.3m;
-        _logger.LogInformation("Imposto calculado: {Imposto}", pedido.Imposto);
+        decimal totalItens = pedido.Itens.Sum(i => i.Valor);
+
+        var calculoImposto = _calculoImpostoFactory.CriarCalculo();
+        pedido.Imposto = calculoImposto.Calcular(totalItens);
+
+        _logger.LogInformation("Imposto calculado com a regra [{Regra}]: {Imposto}", calculoImposto.GetType().Name, pedido.Imposto);
 
         return await _pedidoRepository.AddPedidoAsync(pedido);
     }
