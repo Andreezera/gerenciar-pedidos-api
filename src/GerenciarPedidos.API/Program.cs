@@ -2,6 +2,7 @@
 using GerenciarPedidos.Data.Repositories;
 using GerenciarPedidos.Domain.Interfaces;
 using GerenciarPedidos.Domain.Services;
+using GerenciarPedidos.Domain.Services.CalculoImposto;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,7 +45,13 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+builder.Services.AddSingleton<FeatureFlagService>();
+builder.Services.AddSingleton<CalculoImpostoFactory>();
 builder.Services.AddScoped<IPedidoService, PedidoService>();
+builder.Services.AddTransient<ICalculoImposto, CalculoImpostoVigente>();
+builder.Services.AddTransient<CalculoImpostoVigente>();
+builder.Services.AddTransient<CalculoImpostoReforma>();
+
 builder.Services.AddSingleton<IPedidoRepository, PedidoRepository>();
 
 var app = builder.Build();
