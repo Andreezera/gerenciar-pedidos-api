@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GerenciarPedidos.Domain\GerenciarPedidos.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
