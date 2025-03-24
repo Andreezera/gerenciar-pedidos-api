@@ -2,7 +2,7 @@
 
 namespace GerenciarPedidos.Domain.Services.CalculoImposto;
 
-public class CalculoImpostoVigente : ICalculoImposto
+public class CalculoImpostoVigente : ICalculoImpostoService
 {
     public decimal Calcular(decimal valorTotalItens)
     {
