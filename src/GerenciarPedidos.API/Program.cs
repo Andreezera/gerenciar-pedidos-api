@@ -1,4 +1,5 @@
-﻿using GerenciarPedidos.Data.Interfaces;
+﻿using GerenciarPedidos.API.Middlewares;
+using GerenciarPedidos.Data.Interfaces;
 using GerenciarPedidos.Data.Repositories;
 using GerenciarPedidos.Domain.Interfaces;
 using GerenciarPedidos.Domain.Services;
@@ -45,13 +46,15 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+builder.Services.AddMemoryCache();
+
 builder.Services.AddSingleton<FeatureFlagService>();
 builder.Services.AddSingleton<CalculoImpostoFactory>();
 builder.Services.AddScoped<IPedidoService, PedidoService>();
-builder.Services.AddTransient<ICalculoImposto, CalculoImpostoVigente>();
+builder.Services.AddScoped<ICalculoImpostoFactory, CalculoImpostoFactory>();
+builder.Services.AddTransient<ICalculoImpostoService, CalculoImpostoVigente>();
 builder.Services.AddTransient<CalculoImpostoVigente>();
 builder.Services.AddTransient<CalculoImpostoReforma>();
-
 builder.Services.AddSingleton<IPedidoRepository, PedidoRepository>();
 
 var app = builder.Build();
@@ -68,6 +71,7 @@ app.UseSerilogRequestLogging(options =>
     options.GetLevel = (httpContext, _, ex) =>
         ex != null ? LogEventLevel.Error : LogEventLevel.Information;
 });
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthorization();
 app.MapControllers();
 

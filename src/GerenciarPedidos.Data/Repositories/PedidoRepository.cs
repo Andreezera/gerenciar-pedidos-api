@@ -1,4 +1,5 @@
 ﻿using GerenciarPedidos.Data.Interfaces;
+using GerenciarPedidos.Domain.Dtos;
 using GerenciarPedidos.Domain.Entities;
 
 namespace GerenciarPedidos.Data.Repositories;
@@ -26,5 +27,16 @@ public class PedidoRepository : IPedidoRepository
         var result = await Task.FromResult(_pedidos.Where(p => p.Status == status));
 
         return result;
+    }
+
+    public async Task<bool> IsPedidoDuplicadoAsync(int clienteId, List<ItemPedidoDto> itens)
+    {
+        return await Task.FromResult(_pedidos.Any(p =>
+            p.ClienteId == clienteId &&
+            p.Itens.Count == itens.Count &&
+            p.Itens.All(i => itens.Any(dto =>
+                dto.ProdutoId == i.ProdutoId &&
+                dto.Quantidade == i.Quantidade &&
+                dto.Valor == i.Valor))));
     }
 }

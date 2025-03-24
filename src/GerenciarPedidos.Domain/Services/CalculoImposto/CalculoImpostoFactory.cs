@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace GerenciarPedidos.Domain.Services.CalculoImposto;
 
-public class CalculoImpostoFactory
+public class CalculoImpostoFactory : ICalculoImpostoFactory
 {
     private readonly IServiceProvider _serviceProvider;
     private readonly FeatureFlagService _featureFlagService;
@@ -14,7 +14,7 @@ public class CalculoImpostoFactory
         _featureFlagService = featureFlagService;
     }
 
-    public ICalculoImposto CriarCalculo()
+    public ICalculoImpostoService CriarCalculo()
     {
         if (_featureFlagService.IsFeatureEnabled("UsarReformaTributaria"))
         {
