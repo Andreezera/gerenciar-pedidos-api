@@ -79,3 +79,5 @@ Log.Information("GerenciarPedidosAPI iniciado com sucesso!");
 Log.Information("Data/Hora de Inicialização: {DataHora}", DateTime.Now);
 
 app.Run();
+
+public partial class Program { }
