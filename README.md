@@ -29,13 +29,13 @@ cd gerenciar-pedidos-api
 
 ---
 
-## 📝 **Documentação da API (Swagger)**
+## **Documentação da API (Swagger)**
 Após iniciar a API, acesse o Swagger:
 **[http://localhost:5000/index.html](http://localhost:5000/index.html)**
 
 ---
 
-## 🔧 **Configuração do Cálculo de Imposto**
+## **Configuração do Cálculo de Imposto**
 A API permite alternar entre diferentes regras de cálculo de imposto utilizando uma **Feature Flag** definida no `appsettings.json`. 
 
 Exemplo:
@@ -54,9 +54,9 @@ Isso permite ativar o novo modelo sem necessidade de alterar o código.
 
 ---
 
-## 🔥 **Principais Decisões Técnicas**
-✅ **Uso de Cache:** Implementado com `IMemoryCache` para otimizar listagem de pedidos.  
-✅ **Feature Flags:** Implementação do cálculo de imposto com opção para troca de regras tributárias.  
-✅ **Logging:** Uso de **Serilog** para logs estruturados e monitoramento detalhado.  
-✅ **Testes Automatizados:** Cobertura completa com testes unitários e de integração.  
-✅ **Padrões SOLID e Clean Code:** Código modular e organizado, seguindo boas práticas de desenvolvimento.
+## **Principais Decisões Técnicas**
+- **Uso de Cache:** Implementado com `IMemoryCache` para otimizar listagem de pedidos.
+- **Feature Flags:** Implementação do cálculo de imposto com opção para troca de regras tributárias.  
+- **Logging:** Uso de **Serilog** para logs estruturados e monitoramento detalhado.  
+- **Testes Automatizados:** Cobertura completa com testes unitários e de integração.  
+- **Padrões SOLID e Clean Code:** Código modular e organizado, seguindo boas práticas de desenvolvimento.
