@@ -5,11 +5,13 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GerenciarPedidos.API", "src\GerenciarPedidos.API\GerenciarPedidos.API.csproj", "{EE41153E-E5E5-443F-8AE9-89C22D382CF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GerenciarPedidos.Domain", "src\GerenciarPedidos.Domain\GerenciarPedidos.Domain.csproj", "{55E4CB52-EF5B-4169-B829-8E376B936BB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GerenciarPedidos.Domain", "src\GerenciarPedidos.Domain\GerenciarPedidos.Domain.csproj", "{55E4CB52-EF5B-4169-B829-8E376B936BB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GerenciarPedidos.Data", "src\GerenciarPedidos.Data\GerenciarPedidos.Data.csproj", "{DA66AA9A-3667-4B21-BDEC-0D7453C91A39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GerenciarPedidos.Data", "src\GerenciarPedidos.Data\GerenciarPedidos.Data.csproj", "{DA66AA9A-3667-4B21-BDEC-0D7453C91A39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GerenciarPedidos.Tests", "src\GerenciarPedidos.Tests\GerenciarPedidos.Tests.csproj", "{3F7475D6-F918-4DC7-9598-334B9629AB39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GerenciarPedidos.Tests", "src\GerenciarPedidos.Tests\GerenciarPedidos.Tests.csproj", "{3F7475D6-F918-4DC7-9598-334B9629AB39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GerenciarPedidos.IntegrationTests", "src\GerenciarPedidos.IntegrationTests\GerenciarPedidos.IntegrationTests.csproj", "{6648B102-D2F6-40DE-87AE-DA6FB48BC936}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{3F7475D6-F918-4DC7-9598-334B9629AB39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F7475D6-F918-4DC7-9598-334B9629AB39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F7475D6-F918-4DC7-9598-334B9629AB39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6648B102-D2F6-40DE-87AE-DA6FB48BC936}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6648B102-D2F6-40DE-87AE-DA6FB48BC936}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6648B102-D2F6-40DE-87AE-DA6FB48BC936}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6648B102-D2F6-40DE-87AE-DA6FB48BC936}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

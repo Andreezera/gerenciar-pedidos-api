@@ -8,7 +8,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Moq;
 
-namespace GerenciarPedidos.Tests;
+namespace GerenciarPedidos.Tests.Services;
 
 public class PedidoServiceTests
 {
@@ -42,7 +42,7 @@ public class PedidoServiceTests
     }
 
     [Fact]
-    public async Task CreatePedidoAsync_DeveCriarPedidoComSucesso()
+    public async Task CreatePedidoAsync_Sucesso()
     {
         // Arrange
         var pedidoDto = new PedidoCreateDto
@@ -85,7 +85,7 @@ public class PedidoServiceTests
     }
 
     [Fact]
-    public async Task CreatePedidoAsync_DeveLancarExcecao_QuandoPedidoForDuplicado()
+    public async Task CreatePedidoAsync_Excecao_PedidoDuplicado()
     {
         // Arrange
         var pedidoDto = new PedidoCreateDto
@@ -112,7 +112,7 @@ public class PedidoServiceTests
     }
 
     [Fact]
-    public async Task GetPedidoByIdAsync_DeveRetornarPedido_QuandoIdExistir()
+    public async Task GetPedidoByIdAsync_Pedido_Sucesso()
     {
         // Arrange
         var pedidoId = 1;
@@ -130,7 +130,7 @@ public class PedidoServiceTests
     }
 
     [Fact]
-    public async Task GetPedidoByIdAsync_DeveRetornarNull_QuandoIdNaoExistir()
+    public async Task GetPedidoByIdAsync_RetornarNull_IdNaoExiste()
     {
         // Arrange
         var pedidoId = 1;
@@ -167,7 +167,7 @@ public class PedidoServiceTests
     }
 
     [Fact]
-    public async Task ListPedidosByStatusAsync_DeveRetornarPedidosDoRepositorio_QuandoCacheNaoDisponivel()
+    public async Task ListPedidosByStatusAsync_RetornarPedidosDoRepositorio_QuandoCacheNaoDisponivel()
     {
         // Arrange
         var status = "Criado";
@@ -189,7 +189,7 @@ public class PedidoServiceTests
     }
 
     [Fact]
-    public void AtualizarCache_DeveAdicionarPedido_QuandoCacheJaExiste()
+    public void AtualizarCache_AdicionarPedido_QuandoCacheJaExiste()
     {
         // Arrange
         var pedido = new Pedido { PedidoId = 1, ClienteId = 10, Status = "Criado" };
@@ -210,7 +210,7 @@ public class PedidoServiceTests
     }
 
     [Fact]
-    public void AtualizarCache_DeveCriarCache_SeNaoExistir()
+    public void AtualizarCache_CriarCache_SeNaoExistir()
     {
         // Arrange
         var pedido = new Pedido { PedidoId = 1, ClienteId = 10, Status = "Criado" };
@@ -227,4 +227,40 @@ public class PedidoServiceTests
         pedidosCache.Should().Contain(p => p.PedidoId == 1 && p.ClienteId == 10);
     }
 
+
+    [Fact]
+    public async Task CreatePedidoAsync_ArgumentException_ItensNulos()
+    {
+        // Arrange
+        var pedidoDto = new PedidoCreateDto
+        {
+            ClienteId = 1,
+            Itens = null
+        };
+
+        // Act
+        Func<Task> act = async () => await _pedidoService.CreatePedidoAsync(pedidoDto);
+
+        // Assert
+        await act.Should().ThrowAsync<ArgumentException>()
+            .WithMessage("O pedido deve conter itens");
+    }
+
+    [Fact]
+    public async Task CreatePedidoAsync_ArgumentException_ListaItensVazia()
+    {
+        // Arrange
+        var pedidoDto = new PedidoCreateDto
+        {
+            ClienteId = 1,
+            Itens = new List<ItemPedidoDto>() // 🔥 Lista vazia
+        };
+
+        // Act
+        Func<Task> act = async () => await _pedidoService.CreatePedidoAsync(pedidoDto);
+
+        // Assert
+        await act.Should().ThrowAsync<ArgumentException>()
+            .WithMessage("O pedido deve conter itens");
+    }
 }

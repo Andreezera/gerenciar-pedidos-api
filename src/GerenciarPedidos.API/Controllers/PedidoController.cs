@@ -1,5 +1,4 @@
 ﻿using GerenciarPedidos.Domain.Dtos;
-using GerenciarPedidos.Domain.Entities;
 using GerenciarPedidos.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +19,7 @@ public class PedidoController : ControllerBase
     /// Cria um novo pedido
     /// </summary>
     [HttpPost]
-    public async Task<IActionResult> GetPedido([FromBody] PedidoCreateDto pedido)
+    public async Task<IActionResult> CreatePedido([FromBody] PedidoCreateDto pedido)
     {
         var novoPedido = await _pedidoService.CreatePedidoAsync(pedido);
         return StatusCode(201, new { id = novoPedido.Id, status = "Criado" });
